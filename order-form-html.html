@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pemesanan Jasa</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #totalHarga {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulir Pemesanan Jasa</h1>
+        <form id="orderForm">
+            <label for="tanggal">Tanggal:</label>
+            <input type="date" id="tanggal" name="tanggal" required>
+            
+            <label for="jam">Jam Pengerjaan:</label>
+            <input type="time" id="jam" name="jam" required>
+            
+            <label for="paket">Pilih Paket:</label>
+            <select id="paket" name="paket" required>
+                <option value="">Pilih Paket</option>
+                <option value="basic">Paket Basic - Rp 100.000</option>
+                <option value="standard">Paket Standard - Rp 200.000</option>
+                <option value="premium">Paket Premium - Rp 300.000</option>
+            </select>
+            
+            <label for="quantity">Jumlah:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            
+            <div id="totalHarga">Total Harga: Rp 0</div>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <button type="submit">Pesan Sekarang</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const paketSelect = document.getElementById('paket');
+        const quantityInput = document.getElementById('quantity');
+        const totalHargaDiv = document.getElementById('totalHarga');
+
+        const hargaPaket = {
+            'basic': 100000,
+            'standard': 200000,
+            'premium': 300000
+        };
+
+        function hitungTotal() {
+            const paket = paketSelect.value;
+            const quantity = parseInt(quantityInput.value);
+            if (paket && !isNaN(quantity)) {
+                const total = hargaPaket[paket] * quantity;
+                totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
+            } else {
+                totalHargaDiv.textContent = 'Total Harga: Rp 0';
+            }
+        }
+
+        paketSelect.addEventListener('change', hitungTotal);
+        quantityInput.addEventListener('input', hitungTotal);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
+            // dan mengirim email konfirmasi ke pelanggan
+            console.log('Data yang akan dikirim:', data);
+            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+        });
+    </script>
+</body>
+</html>
