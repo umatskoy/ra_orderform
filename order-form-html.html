@@ -120,12 +120,6 @@
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
-            
-            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
-            // dan mengirim email konfirmasi ke pelanggan
-            console.log('Data yang akan dikirim:', data);
-            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-        });
  fetch('https://script.google.com/macros/s/AKfycbxHK0Coti0bSrwCbrRb0KQT5q2z7RhK_bpJ2RwEorA6g4BvUdyNUxwxboCr04P0RMfJMQ/exec', {
                 method: 'doPOST',
                 body: JSON.stringify(data),
