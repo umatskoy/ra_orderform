@@ -126,3 +126,11 @@
             console.log('Data yang akan dikirim:', data);
             alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
         });
+ fetch('https://script.google.com/macros/s/AKfycbxHK0Coti0bSrwCbrRb0KQT5q2z7RhK_bpJ2RwEorA6g4BvUdyNUxwxboCr04P0RMfJMQ/exec', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors' // Tambahkan ini untuk menangani CORS
+            });
