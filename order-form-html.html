@@ -121,8 +121,33 @@
                 data[key] = value;
             }
             
-            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
-            // dan mengirim email konfirmasi ke pelanggan
+             fetch('https://script.google.com/macros/s/AKfycbxQ-ybn-xe5H9PMlaNBBEDq-65s5cVN7ZSelWE0i6O8MTaWrcZG3XGJ4Hl6ldTpy2d2Sg/exec', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors' // Tambahkan ini untuk menangani CORS
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result.result === 'success') {
+                    alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+                    form.reset();
+                } else {
+                    alert('Terjadi kesalahan: ' + (result.message || 'Silakan coba lagi.'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mengirim pesanan. Detail: ' + error.message);
+            });
+        });
             console.log('Data yang akan dikirim:', data);
             alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
         });
