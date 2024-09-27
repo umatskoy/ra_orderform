@@ -87,6 +87,46 @@
         </form>
     </div>
 
+    <script>
+        const form = document.getElementById('orderForm');
+        const paketSelect = document.getElementById('paket');
+        const quantityInput = document.getElementById('quantity');
+        const totalHargaDiv = document.getElementById('totalHarga');
+
+        const hargaPaket = {
+            'basic': 100000,
+            'standard': 200000,
+            'premium': 300000
+        };
+
+        function hitungTotal() {
+            const paket = paketSelect.value;
+            const quantity = parseInt(quantityInput.value);
+            if (paket && !isNaN(quantity)) {
+                const total = hargaPaket[paket] * quantity;
+                totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
+            } else {
+                totalHargaDiv.textContent = 'Total Harga: Rp 0';
+            }
+        }
+
+        paketSelect.addEventListener('change', hitungTotal);
+        quantityInput.addEventListener('input', hitungTotal);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
+            // dan mengirim email konfirmasi ke pelanggan
+            console.log('Data yang akan dikirim:', data);
+            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+        });
+
      <script>
         const form = document.getElementById('orderForm');
         const paketSelect = document.getElementById('paket');
