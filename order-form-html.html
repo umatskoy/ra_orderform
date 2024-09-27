@@ -119,10 +119,4 @@
             const data = {};
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
-            }
- fetch('https://script.google.com/macros/s/AKfycbxHK0Coti0bSrwCbrRb0KQT5q2z7RhK_bpJ2RwEorA6g4BvUdyNUxwxboCr04P0RMfJMQ/exec', {
-                method: 'doPOST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-            });
+            };
