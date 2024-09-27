@@ -127,5 +127,36 @@
             alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
         });
     </script>
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        
+        // Kirim data ke Google Sheets
+        fetch('https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.result === 'success') {
+                alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+                form.reset();
+            } else {
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+        });
+    });
+</script>
 </body>
 </html>
