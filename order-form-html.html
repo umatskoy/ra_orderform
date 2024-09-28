@@ -118,17 +118,22 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             
-            fetch('https://script.google.com/macros/s/AKfycbwdrZVxYm6SXlSqLFEewNZ3QXd1MYPIQA-WQ_20uH0j/exec', {
-                method: 'Post',
+            form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            fetch('https://script.google.com/macros/s/AKfycbykrRB_uSH0-cLmv9oYh0onB1JBBGw1N8EmayIDtfCTOZ7cG_jS6fySoZJ7pTuBXa6mxQ/exec', {
+                method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                mode: 'cors' // Tambahkan ini untuk menangani CORS
+                mode: 'cors'
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok: ' + response.statusText);
                 }
                 return response.json();
             })
