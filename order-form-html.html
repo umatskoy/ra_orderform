@@ -99,16 +99,17 @@
             'premium': 300000
         };
 
-        function hitungTotal() {
-            const paket = paketSelect.value;
-            const quantity = parseInt(quantityInput.value);
-            if (paket && !isNaN(quantity)) {
-                const total = hargaPaket[paket] * quantity;
-                totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
-            } else {
-                totalHargaDiv.textContent = 'Total Harga: Rp 0';
-            }
-        }
+    function hitungTotal() {
+    const paket = paketSelect.value;
+    const quantity = parseInt(quantityInput.value);
+    if (paket && !isNaN(quantity)) {
+        const total = hargaPaket[paket] * quantity;
+        totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
+    } else {
+        totalHargaDiv.textContent = 'Total Harga: Rp 0';
+    }
+}
+
 
        paketSelect.addEventListener('change', hitungTotal);
         quantityInput.addEventListener('input', hitungTotal);
@@ -121,20 +122,25 @@
         data[key] = value;
     }
 
-    fetch('https://script.google.com/macros/s/AKfycbzjwMRhDzb3q_8w8cVK5Pg4sJqlRpgHdRdbhnb33oKSENUHHWnvcUJk4Jn0ZTrbfJDgYw/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Data yang telah dikirim:', result);
-        alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
-    });
+    fetch('https://https://script.google.com/macros/s/AKfycbxWwWnNmtemI49Gi5THVvuWOOZPh9f-gZ_RwzgN2moSAWj_EnqedO3rWfmKOba17TqF2w/exec', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(result => {
+    console.log('Data yang telah dikirim:', result);
+    alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
 });
+
