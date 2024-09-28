@@ -129,30 +129,3 @@
     </script>
 </body>
 </html>
-
-<script>
-    // ... (rest of the code remains the same)
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = {};
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-
-        // Send data to Google Apps Script
-        action('https://script.google.com/macros/s/AKfycbyIfNJvMi2u_A2fGcA4rNAzj_2Pa1NgY7v_ff5AhTNxl5ysFvxygoncIz-V23xKCLRSIQ/exec', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => console.log('Data sent successfully:', data))
-        .catch(error => console.error('Error sending data:', error));
-
-        alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-    });
-</script>
