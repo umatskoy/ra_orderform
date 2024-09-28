@@ -114,33 +114,38 @@
        paketSelect.addEventListener('change', hitungTotal);
         quantityInput.addEventListener('input', hitungTotal);
 
-       form.addEventListener('submit', function(e) {
+   form.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // Ambil data dari form
     const formData = new FormData(form);
     const data = {};
     for (let [key, value] of formData.entries()) {
         data[key] = value;
     }
 
-    fetch('https://script.google.com/macros/s/AKfycbwdrZVxYm6SXlSqLFEewNZ3QXd1MYPIQA-WQ_20uH0j/dev', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-.then(response => {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return response.json();
-})
-.then(result => {
-    console.log('Data yang telah dikirim:', result);
-    alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
+    // Kirim data menggunakan fetch ke Google Apps Script
+    fetch('https://script.google.com/macros/s/AKfycbwdrZVxYm6SXlSqLFEewNZ3QXd1MYPIQA-WQ_20uH0j/dev', {  // Gantilah 'PASTE_YOUR_WEB_APP_URL_HERE' dengan URL Web Apps Anda
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Data yang telah dikirim:', result);
+        alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
+    });
 });
+
 
