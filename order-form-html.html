@@ -121,11 +121,27 @@
                 data[key] = value;
             }
             
-            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
-            // dan mengirim email konfirmasi ke pelanggan
-            console.log('Data yang akan dikirim:', data);
-            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+           fetch('https://script.google.com/macros/s/AKfycbw6e0nhhafMVL-QEh8tTMGuOlFRFcb8t8yCWNRZUR-opl7OflKZSSW-_ZDzhPl81c6OMw/exec', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.result === 'success') {
+                alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+                form.reset();
+            } else {
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
         });
+    });
     </script>
 </body>
 </html>
