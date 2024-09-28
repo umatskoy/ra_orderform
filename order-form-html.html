@@ -87,7 +87,7 @@
         </form>
     </div>
 
-  <script>
+    <script>
         const form = document.getElementById('orderForm');
         const paketSelect = document.getElementById('paket');
         const quantityInput = document.getElementById('quantity');
@@ -99,53 +99,30 @@
             'premium': 300000
         };
 
-    function hitungTotal() {
-    const paket = paketSelect.value;
-    const quantity = parseInt(quantityInput.value);
-    if (paket && !isNaN(quantity)) {
-        const total = hargaPaket[paket] * quantity;
-        totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
-    } else {
-        totalHargaDiv.textContent = 'Total Harga: Rp 0';
-    }
-}
+        function hitungTotal() {
+            const paket = paketSelect.value;
+            const quantity = parseInt(quantityInput.value);
+            if (paket && !isNaN(quantity)) {
+                const total = hargaPaket[paket] * quantity;
+                totalHargaDiv.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
+            } else {
+                totalHargaDiv.textContent = 'Total Harga: Rp 0';
+            }
+        }
 
-
-       paketSelect.addEventListener('change', hitungTotal);
+        paketSelect.addEventListener('change', hitungTotal);
         quantityInput.addEventListener('input', hitungTotal);
 
-   form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Ambil data dari form
-    const formData = new FormData(form);
-    const data = {};
-    for (let [key, value] of formData.entries()) {
-        data[key] = value;
-    }
-
-    // Kirim data menggunakan fetch ke Google Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbxWwWnNmtemI49Gi5THVvuWOOZPh9f-gZ_RwzgN2moSAWj_EnqedO3rWfmKOba17TqF2w/exec', {  // Gantilah 'PASTE_YOUR_WEB_APP_URL_HERE' dengan URL Web Apps Anda
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(result => {
-        console.log('Data yang telah dikirim:', result);
-        alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
-    });
-});
-
-
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
+            // dan mengirim email konfirmasi ke pelanggan
+            console.log('Data yang akan dikirim:', data);
+            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+        });
