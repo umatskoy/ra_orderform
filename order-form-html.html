@@ -113,43 +113,28 @@
        paketSelect.addEventListener('change', hitungTotal);
         quantityInput.addEventListener('input', hitungTotal);
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            fetch('https://script.google.com/macros/s/AKfycbykrRB_uSH0-cLmv9oYh0onB1JBBGw1N8EmayIDtfCTOZ7cG_jS6fySoZJ7pTuBXa6mxQ/exec', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'cors'
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(result => {
-                if (result.result === 'success') {
-                    alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-                    form.reset();
-                } else {
-                    alert('Terjadi kesalahan: ' + (result.message || 'Silakan coba lagi.'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengirim pesanan. Detail: ' + error.message);
-            });
-        });
-    </script>
-</body>
-</html>
+       form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+
+    fetch('https://script.google.com/macros/s/AKfycbzjwMRhDzb3q_8w8cVK5Pg4sJqlRpgHdRdbhnb33oKSENUHHWnvcUJk4Jn0ZTrbfJDgYw/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Data yang telah dikirim:', result);
+        alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ada kesalahan dalam mengirim data. Silakan coba lagi.');
+    });
+});
