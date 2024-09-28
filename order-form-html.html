@@ -142,7 +142,7 @@
         }
 
         // Send data to Google Apps Script
-        fetch('https://script.google.com/macros/s/AKfycbwdrZVxYm6SXlSqLFEewNZ3QXd1MYPIQA-WQ_20uH0j/exec', {
+        action('https://script.google.com/macros/s/AKfycbwdrZVxYm6SXlSqLFEewNZ3QXd1MYPIQA-WQ_20uH0j/exec', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
