@@ -60,7 +60,7 @@
 <body>
     <div class="container">
         <h1>Formulir Pemesanan Jasa</h1>
-        <form id="orderForm">
+        <<form id="orderForm" action="https://script.google.com/macros/d/AKfycbwWhbZGKVQuLTCUHiRhlVOsT7wDW0iIZLVa20uh-TAW6JWxySDYHPQjMcX3H8Tl0YZ9/exec" method="post">>
             <label for="tanggal">Tanggal:</label>
             <input type="date" id="tanggal" name="tanggal" required>
             
@@ -113,19 +113,15 @@
         paketSelect.addEventListener('change', hitungTotal);
         quantityInput.addEventListener('input', hitungTotal);
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
-            // dan mengirim email konfirmasi ke pelanggan
-            console.log('Data yang akan dikirim:', data);
-            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-        });
+      form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://script.google.com/macros/d/AKfycbwWhbZGKVQuLTCUHiRhlVOsT7wDW0iIZLVa20uh-TAW6JWxySDYHPQjMcX3H8Tl0YZ9/exec', true);
+  xhr.send(formData);
+  console.log('Data sent to Google Sheets!');
+  alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+});
     </script>
 </body>
 </html>
