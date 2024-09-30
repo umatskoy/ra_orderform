@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxkV076cDs31pUsQFN5V_HjH_ydclAYnYLFYIkL_zXS/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzEvHOZkkqh8-BVdqh645cNPzTTUJz303C1lFFCIqmtMFvkfwBUzqbBcoeLDT7hlqgK2w/exec'
 
 const form = document.forms['orderForm']
 
