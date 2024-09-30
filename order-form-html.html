@@ -122,22 +122,22 @@
             }
             // Kirim data ke Google Apps Script Web App
             fetch('https://script.google.com/macros/s/AKfycbzEvHOZkkqh8-BVdqh645cNPzTTUJz303C1lFFCIqmtMFvkfwBUzqbBcoeLDT7hlqgK2w/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            }).then(response => {
-                console.log('Data berhasil dikirim');
-                alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-                form.reset();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
-            });
-        });
-    </script>
-</body>
-</html>
+                 method: 'POST',
+           mode: 'no-cors',
+           cache: 'no-cache',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(data)
+         }).then(response => {
+           console.log('Data berhasil dikirim:', data);
+           alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+           form.reset();
+         }).catch(error => {
+           console.error('Error:', error);
+           alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+         });
+       });
+     </script>
+   </body>
+   </html>
