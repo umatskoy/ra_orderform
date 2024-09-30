@@ -115,34 +115,6 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            fetch('https://script.google.com/macros/s/AKfycbxkV076cDs31pUsQFN5V_HjH_ydclAYnYLFYIkL_zXS/exec', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'cors'
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(result => {
-                if (result.result === 'success') {
-                    alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
-                    form.reset();
-                } else {
-                    alert('Terjadi kesalahan: ' + (result.message || 'Silakan coba lagi.'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengirim pesanan. Detail: ' + error.message);
             });
     });
     </form>
