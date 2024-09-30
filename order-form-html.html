@@ -115,9 +115,17 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            });
-    });
-    </form>
-  <script src="script.js"></script> 
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Di sini Anda akan menambahkan kode untuk mengirim data ke Google Sheets
+            // dan mengirim email konfirmasi ke pelanggan
+            console.log('Data yang akan dikirim:', data);
+            alert('Terima kasih atas pesanan Anda! Detil pesanan akan dikirim melalui email.');
+        });
+    </script src="script.js"></script> >
 </body>
 </html>
